@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<extension type="module" version="3.1.0" client="site" method="upgrade">
+    <name>Geo Location Search</name>
+    <author>Jason Braswell</author>
+    <version>1.0.0</version>
+    <description>Geo Location Search Widget</description>
+    <files>
+        <filename>mod_geo_location_search.xml</filename>
+        <filename module="mod_geo_location_search">mod_geo_location_search.php</filename>
+        <filename>index.html</filename>
+        <filename>helper.php</filename>
+        <filename>tmpl/default.php</filename>
+        <filename>tmpl/index.html</filename>
+		<folder>js</folder>
+    </files>
+
+    <config>
+        <fields name="params">
+            <fieldset name="basic">
+                <field
+					name="radii_values" type="text" label="Radii Values"
+                    description="Comma-delimited list of radii values" default="5,10,15,20,25,50,100">
+                </field>
+                <field name="default_radius" type="text" label="Default radius"
+					description="Radius value that will be used to search on page load. Leave blank to turn this off.">
+				</field>
+            </fieldset>
+        </fields>
+    </config>
+	
+</extension>
