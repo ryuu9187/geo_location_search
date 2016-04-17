@@ -21,9 +21,6 @@
 					name="radii_values" type="text" label="Radii Values"
                     description="Comma-delimited list of radii values" default="5,10,15,20,25,50,100">
                 </field>
-                <field name="default_radius" type="text" label="Default radius"
-					description="Radius value that will be used to search on page load. Leave blank to turn this off.">
-				</field>
             </fieldset>
         </fields>
     </config>
