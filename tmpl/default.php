@@ -9,6 +9,8 @@
 	
 	$module = JModuleHelper::getModule('mod_geo_location_search');
 	$modParams = new JRegistry($module->params);
+	$apiKey = $modParams['api_key'];
+	$linkTemplate = $modParams['link_template'];
 ?>
 
 
@@ -38,7 +40,10 @@
 		</select>
 	</div>
 
-	<button onclick="geoLocSearch('<?php echo $modParams['api_key']; ?>');" class="btn btn-primary" style="float:right;">Search</button>
-</div
+	<button onclick="geoLocSearch('<?php echo $apiKey ?>', '<?php echo $linkTemplate ?>');"
+		class="btn btn-primary" style="float:right;">Search</button>
+</div>
 
-<div id="geoList"></div>
+<div>
+	<ol id="geoList" style="list-style-type: none;"></ol>
+</div>

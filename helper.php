@@ -22,14 +22,23 @@
 			// Create a new query object.
 			$query = $db->getQuery(true);
 
-			$query->select($db->quoteName(array('name', 'address', 'city', 'state', 'zip')))
+			$distFunc = 'get_distance_in_miles_between_geo_locations(' .
+					implode(',', array($lat, $long, $db->quoteName('lat'), $db->quoteName('long'))) . ')';
+			
+			$columns = array(
+				$db->quoteName('name'),
+				$db->quoteName('address'),
+				$db->quoteName('city'),
+				$db->quoteName('state'),
+				$db->quoteName('zip'),
+				$distFunc . ' AS ' . $db->quoteName('distance'));
+			
+			$query->select($columns)
 				->from($db->quoteName('#__eb_locations'))
-				->where($db->quoteName('published') . ' = 1', 'AND')
-				->where('get_distance_in_miles_between_geo_locations(' .
-					implode(',', array($lat, $long, $db->quoteName('lat'), $db->quoteName('long'))) .
-					') <= ' . intval($radius))
-				->order('name ASC');
- 
+				->where($db->quoteName('published') . ' = 1')
+				->having($db->quoteName('distance') . ' <= ' . intval($radius))
+				->order($db->quoteName('name') . ' ASC');
+
 			// Reset the query using our newly populated query object.
 			$db->setQuery($query);
  

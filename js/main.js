@@ -1,8 +1,37 @@
-function updateGeoLocationUI(locations) {
-	var $display = jQUery("#geoList");
+var _linkTemplate = "/courses/upcoming-event/{name}";
+
+function createListItem(item, idx) {
+	var formattedAddress = "";
+	formattedAddress += item.address || "";
+	formattedAddress += ((item.address && item.city) ? ", " : "") + (item.city || "");
+	formattedAddress += ((item.city && item.state) ? ", " : "") + (item.state || "");
+	formattedAddress += ((item.state && item.zip) ? " " : "") + (item.zip || "");
+
+	var link = _linkTemplate.replace(/{name}/gi, item.name.toLowerCase().replace(/\s/gi, '-'));
+	
+	var $li = jQuery("<li></li>");
+	var $div = jQuery("<div><p style='display:inline-block;'>" + idx + ". " + item.name +
+		"</p><p style='float:right;'>" + (Math.round(item.distance * 10) / 10) + " Mi" + "</p></div>");
+	var $div2 = jQuery("<div><p style='display:inline-block;'>" + formattedAddress +
+		"</p><a href='" + link + "' class='btn btn-primary' style='float:right;'>Classes</a></div>");
+	
+	$li.append($div).append($div2);
+	
+	return $li;
 }
 
-function geoLocSearch(apiKey) {
+function updateGeoLocationUI(locations) {
+	var $display = jQuery("#geoList");
+	$display.empty();
+	
+	for (var i = 0; i < locations.length; i++) {
+		$display.append(createListItem(locations[i], i + 1));
+	}
+}
+
+function geoLocSearch(apiKey, linkTemplate) {
+	_linkTemplate = linkTemplate || _linkTemplate;
+	
 	var $location = jQuery("#geo_location");
 	var $distance = jQuery("#geo_radius");
 	var location = $location && $location.val() || null;

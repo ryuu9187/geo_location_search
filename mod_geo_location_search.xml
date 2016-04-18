@@ -24,6 +24,10 @@
 				<field name="api_key" type="text" label="Google API Key"
 					description="API Key used for on-the-fly geo-coding.">
 				</field>
+				<field name="link_template" type="text" label="Link Template"
+					default="/dev/courses/upcoming-event/{name}"
+					description="Template that links to the location's classes. Use the token {name} for the name of the location">
+				</field>
             </fieldset>
         </fields>
     </config>
