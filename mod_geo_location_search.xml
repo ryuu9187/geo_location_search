@@ -21,6 +21,9 @@
 					name="radii_values" type="text" label="Radii Values"
                     description="Comma-delimited list of radii values" default="5,10,15,20,25,50,100">
                 </field>
+				<field name="api_key" type="text" label="Google API Key"
+					description="API Key used for on-the-fly geo-coding.">
+				</field>
             </fieldset>
         </fields>
     </config>

@@ -6,6 +6,9 @@
     
     $document = JFactory::getDocument();
     $document->addScript('/dev/modules/mod_geo_location_search/js/main.js');
+	
+	$module = JModuleHelper::getModule('mod_geo_location_search');
+	$modParams = new JRegistry($module->params);
 ?>
 
 
@@ -19,8 +22,6 @@
 		<select id="geo_radius" name="radius">
 
 <?php
-	$module = JModuleHelper::getModule('mod_geo_location_search');
-	$modParams = new JRegistry($module->params);
 	$radii = $modParams['radii_values'];
 	$values = split(",", $radii);
 	
@@ -37,7 +38,7 @@
 		</select>
 	</div>
 
-	<button onclick="geoLocSearch();" class="btn btn-primary" style="float:right;">Search</button>
+	<button onclick="geoLocSearch('<?php echo $modParams['api_key']; ?>');" class="btn btn-primary" style="float:right;">Search</button>
 </div
 
 <div id="geoList"></div>

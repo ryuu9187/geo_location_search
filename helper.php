@@ -6,23 +6,28 @@
 			$app = JFactory::getApplication();
 			$postParams = $app->input;
 			
-			echo json_encode(self::getLocationsNearLatLong(0,0));
+			$radius = $postParams->getString('radius');
+			$lat = $postParams->getString('lat');
+			$long = $postParams->getString('long');
+			
+			echo json_encode(self::getLocationsNearLatLong($lat, $long, $radius));
 			
 			$app->close();
 		}
 		
-		
-		private static function getLocationsNearLatLong($lat, $long) {
+		private static function getLocationsNearLatLong($lat, $long, $radius) {
 			// Get a db connection.
 			$db = JFactory::getDbo();
  
 			// Create a new query object.
 			$query = $db->getQuery(true);
- 
 
 			$query->select($db->quoteName(array('name', 'address', 'city', 'state', 'zip')))
 				->from($db->quoteName('#__eb_locations'))
-				->where($db->quoteName('published') . ' = 1')
+				->where($db->quoteName('published') . ' = 1', 'AND')
+				->where('get_distance_in_miles_between_geo_locations(' .
+					implode(',', array($lat, $long, $db->quoteName('lat'), $db->quoteName('long'))) .
+					') <= ' . $radius)
 				->order('name ASC');
  
 			// Reset the query using our newly populated query object.
