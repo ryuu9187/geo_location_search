@@ -27,7 +27,7 @@
 				->where($db->quoteName('published') . ' = 1', 'AND')
 				->where('get_distance_in_miles_between_geo_locations(' .
 					implode(',', array($lat, $long, $db->quoteName('lat'), $db->quoteName('long'))) .
-					') <= ' . $radius)
+					') <= ' . intval($radius))
 				->order('name ASC');
  
 			// Reset the query using our newly populated query object.
