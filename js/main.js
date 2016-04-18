@@ -1,8 +1,15 @@
 function geoLocSearch() {
+	var $location = jQuery("#geo_location");
+	var $distance = jQuery("#geo_radius");
+	var data = {
+		location : $location && $location.val() || null,
+		distance : $distance && $distance.val() || null
+	};
+	
 	jQuery.ajax({
-		type: "GET",
+		type: "POST",
 		url: "index.php?option=com_ajax&module=geo_location_search&method=getGeoLocations&format=json&Itemid=1",
-		data: null,
+		data: data,
 		success: function(response){
 			console.log(response);
 		}
