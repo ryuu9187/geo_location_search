@@ -11,6 +11,9 @@
 	$modParams = new JRegistry($module->params);
 	$apiKey = $modParams['api_key'];
 	$linkTemplate = $modParams['link_template'];
+	
+	// Set some global JS variables from the module
+	$document->addScriptDeclaration("_apiKey = '" . $apiKey . "'; _linkTemplate = '" . $linkTemplate . "';");
 ?>
 
 
@@ -40,8 +43,7 @@
 		</select>
 	</div>
 
-	<button onclick="geoLocSearch('<?php echo $apiKey ?>', '<?php echo $linkTemplate ?>');"
-		class="btn btn-primary" style="float:right;">Search</button>
+	<button onclick="geoLocSearch();" class="btn btn-primary" style="float:right;">Search</button>
 </div>
 
 <div>

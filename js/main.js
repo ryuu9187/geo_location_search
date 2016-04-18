@@ -1,4 +1,5 @@
 var _linkTemplate = "/courses/upcoming-event/{name}";
+var _apiKey = "";
 
 function createListItem(item, idx) {
 	var formattedAddress = "";
@@ -29,9 +30,7 @@ function updateGeoLocationUI(locations) {
 	}
 }
 
-function geoLocSearch(apiKey, linkTemplate) {
-	_linkTemplate = linkTemplate || _linkTemplate;
-	
+function geoLocSearch() {
 	var $location = jQuery("#geo_location");
 	var $distance = jQuery("#geo_radius");
 	var location = $location && $location.val() || null;
@@ -42,7 +41,7 @@ function geoLocSearch(apiKey, linkTemplate) {
 		return;
 	}
 	
-	if (!apiKey) {
+	if (!_apiKey) {
 		console.log("Cannot get current geo-location. API key error.");
 		alert("Error running geo-services. Could not get your current location.");
 		return;
@@ -63,7 +62,7 @@ function geoLocSearch(apiKey, linkTemplate) {
 	// Get the lat/long
 	jQuery.ajax({
 		type: "GET",
-		url : "https://maps.googleapis.com/maps/api/geocode/json?address=" + encodeURI(location) + "&key=" + apiKey,
+		url : "https://maps.googleapis.com/maps/api/geocode/json?address=" + encodeURI(location) + "&key=" + _apiKey,
 		success : function (response) {
 			if (response && response.results && response.results.length > 0) {
 				var geo = response.results[0].geometry;
@@ -79,3 +78,11 @@ function geoLocSearch(apiKey, linkTemplate) {
 		}
 	});
 }
+
+
+jQuery(document).ready(function() {
+	var $location = jQuery("#geo_location").val() || "";
+	if ($location) {
+		geoLocSearch();
+	}
+});
