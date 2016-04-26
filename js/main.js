@@ -11,10 +11,10 @@ function createListItem(item, idx) {
 	var link = _linkTemplate.replace(/{name}/gi, item.name.toLowerCase().replace(/\s/gi, '-'));
 	
 	var $li = jQuery("<li></li>");
-	var $div = jQuery("<div><p style='display:inline-block;'>" + idx + ". " + item.name +
-		"</p><p style='float:right;'>" + (Math.round(item.distance * 10) / 10) + " Mi" + "</p></div>");
-	var $div2 = jQuery("<div><p style='display:inline-block;'>" + formattedAddress +
-		"</p><a href='" + link + "' class='btn btn-primary' style='float:right;'>Classes</a></div>");
+	var $div = jQuery("<div class='geo-sub-container'><p class='geo-title'>" + idx + ". " + item.name +
+		"</p><p class='geo-distance'>" + (Math.round(item.distance * 10) / 10) + " Mi" + "</p></div>");
+	var $div2 = jQuery("<div style='overflow:auto;'><p class='geo-address'>" + formattedAddress +
+		"</p><a href='" + link + "' class='geo-courses-btn btn btn-primary'>Courses</a></div>");
 	
 	$li.append($div).append($div2);
 	
