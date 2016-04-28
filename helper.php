@@ -37,7 +37,7 @@
 				->from($db->quoteName('#__eb_locations'))
 				->where($db->quoteName('published') . ' = 1')
 				->having($db->quoteName('distance') . ' <= ' . intval($radius))
-				->order($db->quoteName('name') . ' ASC');
+				->order($db->quoteName('distance') . ' ASC');
 
 			// Reset the query using our newly populated query object.
 			$db->setQuery($query);
